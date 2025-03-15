@@ -1,7 +1,27 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 
+declare global {
+  interface Window {
+    dataLayer?: { push: (event: Record<string, any>) => void };
+  }
+}
+
 const IndexPage: React.FC<PageProps> = () => {
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (typeof window !== "undefined" && window.dataLayer) {
+        window.dataLayer.push({
+          event: "received_user_group",
+          usergroup: "starter",
+          eventTimeout: 5000,
+        });
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <main className="m-16">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
