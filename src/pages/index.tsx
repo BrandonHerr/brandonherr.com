@@ -16,6 +16,11 @@ const IndexPage: React.FC<PageProps> = () => {
           usergroup: "starter",
           eventTimeout: 5000,
         });
+
+        window.dataLayer.push({
+          event: "received_mc_user_id",
+          mcUserId: "1232",
+        });
       }
     }, 3000);
 
